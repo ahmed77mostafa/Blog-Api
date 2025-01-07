@@ -17,16 +17,9 @@ namespace Blog.Repositories.Implements
         public void AddReaction(int postId,int userId, ReactionDto reactionDto)
         {
             var Post = _context.Posts.FirstOrDefault(i => i.Id == postId);
-            if (Post == null)
-            {
-                return;
-            }
-
             var User = _context.Users.FirstOrDefault(i => i.Id == userId);
-            if (User == null)
-            {
+            if (Post == null & User == null)
                 return;
-            }
 
  
             PostReaction postReaction = new PostReaction
@@ -34,18 +27,18 @@ namespace Blog.Repositories.Implements
                 Post = Post,
                 Reaction =new Reaction
                 {
-                    Type=reactionDto.Type,
+                    Type = reactionDto.Type,
                 },
                 User = User
             };
-             if (postReaction==null)
+            if (postReaction==null)
             {
                 Post.PostReactions.Add(postReaction);
                 _context.SaveChanges();
 
             }
             _context.PostReactions.Add(postReaction);
-            _context.SaveChanges();
+            _context.SaveChanges(); 
         }
     }
 }
