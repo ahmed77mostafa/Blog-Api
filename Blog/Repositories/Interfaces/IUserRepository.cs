@@ -5,8 +5,10 @@ namespace Blog.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        public IList<UserPostReactionDto> GetAll();
-        public void Add(UserDto user);
-        public User GetById(int id);
+        public void AddUser(UserDto userDto);
+        public void AddUserReaction(UserReactionDto userDto);
+        public void AddUserPostReaction(UserPostReactionDto userDto);
+        public List<UserPostReactionDto> GetAll();
+        public UserPostReactionDto GetUserById(int id);
     }
 }
