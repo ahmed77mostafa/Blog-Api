@@ -10,29 +10,36 @@ namespace Blog.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-        private readonly IPostRepository _repo;
-        public PostController(IPostRepository repo)
+        private readonly IPostRepository _postRepo;
+
+        public PostController(IPostRepository postRepo)
         {
-            _repo = repo;
+            _postRepo = postRepo;
         }
-        [HttpGet]
-        public IActionResult Get(int id)
+
+        [HttpGet("{id}")]
+        public IActionResult GetPostById(int id)
         {
-            var p=_repo.GetPost(id);
-            return Ok(p);   
+            var post = _postRepo.GetPostById(id);
+            return Ok(post);
         }
         [HttpPost]
-        public IActionResult Add(PostDto post)
+        public IActionResult AddPost(PostDto post)
         {
-            _repo.Add(post);
+            _postRepo.AddPost(post);
             return Created();
         }
-        [HttpPut]
-        public IActionResult Put(int id,PostDto post)
+        [HttpPut("{id}")]
+        public IActionResult PutPost(int id,PostDto post)
         {
-            _repo.Update(id, post);
+            _postRepo.UpdatePost(id, post);
             return Ok("Updated");
-
+        }
+        [HttpPut("{postId}")]
+        public IActionResult PutPostCommentUser(int postId, PostCommentUserDto postCommentUserDto)
+        {
+            _postRepo.UpdatePostCommentUser(postId, postCommentUserDto);
+            return Ok("Updated");
         }
     }
 }
