@@ -4,6 +4,6 @@ namespace Blog.Repositories.Interfaces
 {
     public interface IReactionRepository
     {
-        public void Add(ReactionDto dto);
+        public void AddReaction(ReactionDto dto);
     }
 }
